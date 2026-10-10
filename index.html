@@ -7,12 +7,13 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg-color: #0b0b0b;
             --surface-color: #141414;
+            --surface-card: #1c1c1c;
             --text-primary: #f5f5f5;
             --text-secondary: #a0a0a0;
             --accent-gold: #d4af37;
@@ -79,7 +80,7 @@
         .gallery-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 8% 120px 8%;
+            padding: 0 8% 80px 8%;
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 30px;
@@ -96,7 +97,8 @@
             transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
         }
 
-        .photo-card.visible {
+        .photo-card.visible,
+        .reviews-section.visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -125,7 +127,7 @@
             .photo-card:nth-child(2) {
                 grid-column: span 5;
                 aspect-ratio: 3 / 4;
-                margin-top: 80px; /* Crea il movimento asimmetrico */
+                margin-top: 80px;
             }
             .photo-card:nth-child(3) {
                 grid-column: span 8;
@@ -192,6 +194,79 @@
             transform: translateY(0);
         }
 
+        /* Sezione Recensioni Ironiche */
+        .reviews-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 8% 100px 8%;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .review-card {
+            background-color: var(--surface-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .stars {
+            color: var(--accent-gold);
+            font-size: 1rem;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .review-quote {
+            font-size: 0.98rem;
+            color: var(--text-primary);
+            font-style: italic;
+            margin-bottom: 20px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .review-author {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         /* Footer */
         footer {
             max-width: 1400px;
@@ -228,11 +303,14 @@
                 padding: 60px 6% 40px 6%;
             }
             .gallery-container {
-                padding: 0 6% 80px 6%;
+                padding: 0 6% 60px 6%;
                 gap: 24px;
             }
+            .reviews-section {
+                padding: 40px 6% 60px 6%;
+            }
             .photo-overlay {
-                opacity: 1; /* Sempre visibile su mobile per comodità */
+                opacity: 1;
                 background: linear-gradient(
                     to top,
                     rgba(11, 11, 11, 0.85) 0%,
@@ -296,6 +374,41 @@
 
     </main>
 
+    <!-- Sezione Recensioni Ironiche -->
+    <section class="reviews-section">
+        <h2 class="section-title">Cosa Dicono di Me</h2>
+        <p class="section-subtitle">Recensioni da clienti 100% autorevoli</p>
+
+        <div class="reviews-grid">
+            <!-- Recensione 1 -->
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p class="review-quote">"Bello il sito tesoro, foto molto artistiche! Ma quando ti tagli i capelli?"</p>
+                </div>
+                <div class="review-author">— La Mamma</div>
+            </div>
+
+            <!-- Recensione 2 -->
+            <div class="review-card">
+                <div>
+                    <div class="stars">★☆☆☆☆</div>
+                    <p class="review-quote">"Mi ha fotografato per 3 ore mentre dormivo sul divano. 1/5 stelle per l'intrusione."</p>
+                </div>
+                <div class="review-author">— Il Gatto</div>
+            </div>
+
+            <!-- Recensione 3 -->
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p class="review-quote">"Foto bellissime, davvero un artista... però quella che hai fatto a me fa schifo."</p>
+                </div>
+                <div class="review-author">— L'Amico di Sempre</div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Riccardo Tarantino. Tutti i diritti riservati.</p>
@@ -305,7 +418,7 @@
     <!-- JavaScript per animazioni di dissolvenza allo scroll -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const cards = document.querySelectorAll(".photo-card");
+            const elementsToAnimate = document.querySelectorAll(".photo-card, .reviews-section");
 
             const observerOptions = {
                 root: null,
@@ -316,17 +429,16 @@
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        // Aggiunge un piccolo ritardo progressivo basato sull'ordine
                         setTimeout(() => {
                             entry.target.classList.add("visible");
-                        }, index * 120);
+                        }, index * 100);
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            cards.forEach(card => {
-                observer.observe(card);
+            elementsToAnimate.forEach(el => {
+                observer.observe(el);
             });
         });
     </script>
