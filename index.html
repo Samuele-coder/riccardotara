@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riccardo Tarantino | Visual Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --surface-color: #141414;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f3e5ab;
+            --transition: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header / Hero Section */
+        header {
+            padding: 100px 8% 60px 8%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hero-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-gold);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            font-weight: 400;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        h1 span {
+            font-style: italic;
+            color: var(--accent-gold);
+        }
+
+        .hero-bio {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        /* Gallery Layout Asimmetrico */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 8% 120px 8%;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 30px;
+        }
+
+        .photo-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: var(--surface-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+        }
+
+        .photo-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Griglia Asimmetrica per le 3 foto */
+        .photo-card:nth-child(1) {
+            grid-column: span 12;
+            aspect-ratio: 16 / 9;
+        }
+
+        .photo-card:nth-child(2) {
+            grid-column: span 12;
+            aspect-ratio: 4 / 5;
+        }
+
+        .photo-card:nth-child(3) {
+            grid-column: span 12;
+            aspect-ratio: 4 / 5;
+        }
+
+        @media (min-width: 900px) {
+            .photo-card:nth-child(1) {
+                grid-column: span 7;
+                aspect-ratio: 4 / 5;
+            }
+            .photo-card:nth-child(2) {
+                grid-column: span 5;
+                aspect-ratio: 3 / 4;
+                margin-top: 80px; /* Crea il movimento asimmetrico */
+            }
+            .photo-card:nth-child(3) {
+                grid-column: span 8;
+                grid-column-start: 3;
+                aspect-ratio: 16 / 9;
+                margin-top: -40px;
+            }
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--transition), filter 0.5s ease;
+            filter: brightness(0.9);
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.04);
+            filter: brightness(1);
+        }
+
+        /* Overlay con didascalia */
+        .photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(11, 11, 11, 0.9) 0%,
+                rgba(11, 11, 11, 0.3) 50%,
+                transparent 100%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+        }
+
+        .photo-card:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .caption-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            transform: translateY(15px);
+            transition: transform 0.5s var(--transition);
+        }
+
+        .caption-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            transform: translateY(15px);
+            transition: transform 0.5s var(--transition) 0.05s;
+        }
+
+        .photo-card:hover .caption-title,
+        .photo-card:hover .caption-text {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 8% 80px 8%;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .contact-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .contact-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Responsive Mobile Adjustments */
+        @media (max-width: 768px) {
+            header {
+                padding: 60px 6% 40px 6%;
+            }
+            .gallery-container {
+                padding: 0 6% 80px 6%;
+                gap: 24px;
+            }
+            .photo-overlay {
+                opacity: 1; /* Sempre visibile su mobile per comodità */
+                background: linear-gradient(
+                    to top,
+                    rgba(11, 11, 11, 0.85) 0%,
+                    transparent 70%
+                );
+                padding: 24px;
+            }
+            .caption-title, .caption-text {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Introduzione -->
+    <header>
+        <span class="hero-tag">Visual Portfolio</span>
+        <h1>Riccardo <span>Tarantino</span></h1>
+        <p class="hero-bio">Esplorazioni visive attraverso luci, ombre e momenti catturati nel tempo. Una ricerca estetica minimale e contemporanea.</p>
+    </header>
+
+    <!-- Galleria Fotografica -->
+    <main class="gallery-container">
+
+        <!-- FOTO 1 -->
+        <div class="photo-card">
+            <img src="foto1.png" alt="Foto 1 Portfolio Riccardo Tarantino">
+            <div class="photo-overlay">
+                <!-- ========================================== -->
+                <!-- CAMBIA QUI LA DIDASCALIA DELLA FOTO 1       -->
+                <!-- ========================================== -->
+                <h3 class="caption-title">Silence & Light</h3>
+                <p class="caption-text">Studio sulla geometria della luce naturale.</p>
+            </div>
+        </div>
+
+        <!-- FOTO 2 -->
+        <div class="photo-card">
+            <img src="foto2.png" alt="Foto 2 Portfolio Riccardo Tarantino">
+            <div class="photo-overlay">
+                <!-- ========================================== -->
+                <!-- CAMBIA QUI LA DIDASCALIA DELLA FOTO 2       -->
+                <!-- ========================================== -->
+                <h3 class="caption-title">Urban Solitude</h3>
+                <p class="caption-text">Frammenti di architettura urbana al crepuscolo.</p>
+            </div>
+        </div>
+
+        <!-- FOTO 3 -->
+        <div class="photo-card">
+            <img src="foto3.png" alt="Foto 3 Portfolio Riccardo Tarantino">
+            <div class="photo-overlay">
+                <!-- ========================================== -->
+                <!-- CAMBIA QUI LA DIDASCALIA DELLA FOTO 3       -->
+                <!-- ========================================== -->
+                <h3 class="caption-title">Ephemeral Lines</h3>
+                <p class="caption-text">Minimalismo astratto in bianco e nero.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Riccardo Tarantino. Tutti i diritti riservati.</p>
+        <p>Contatti: <a href="mailto:info@riccardotarantino.it" class="contact-link">info@riccardotarantino.it</a></p>
+    </footer>
+
+    <!-- JavaScript per animazioni di dissolvenza allo scroll -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cards = document.querySelectorAll(".photo-card");
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Aggiunge un piccolo ritardo progressivo basato sull'ordine
+                        setTimeout(() => {
+                            entry.target.classList.add("visible");
+                        }, index * 120);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+
+</body>
+</html>
