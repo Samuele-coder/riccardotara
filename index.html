@@ -175,7 +175,7 @@
         .video-card {
             position: relative;
             width: 100%;
-            max-width: 400px; /* Perfetto per video verticali su iPad e Desktop */
+            max-width: 400px;
             border-radius: 20px;
             overflow: hidden;
             background-color: var(--surface-color);
@@ -209,6 +209,28 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             z-index: 2;
+        }
+
+        .sound-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(11, 11, 11, 0.85);
+            backdrop-filter: blur(8px);
+            color: var(--accent-gold);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            z-index: 3;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .sound-btn:hover {
+            transform: scale(1.05);
+            background: rgba(212, 175, 55, 0.2);
         }
 
         /* Sezione Recensioni */
@@ -271,7 +293,7 @@
         <p class="hero-bio">Esplorazioni visive attraverso luci, ombre e momenti catturati nel tempo. Una ricerca estetica minimale e contemporanea.</p>
     </header>
 
-    <!-- Galleria Fotografica con 3 Foto integrate perfettamente -->
+    <!-- Galleria Fotografica -->
     <main class="gallery-container">
 
         <!-- FOTO 1 -->
@@ -310,7 +332,8 @@
 
         <div class="video-card">
             <span class="video-tag">Brainrot #1</span>
-            <video id="brainrotVideo" autoplay loop muted playsinline controls>
+            <button class="sound-btn" id="soundBtn" onclick="toggleAudio()">🔊 Attiva Audio</button>
+            <video id="brainrotVideo" autoplay loop muted playsinline controls crossorigin="anonymous" referrerpolicy="no-referrer">
                 <source src="https://files.catbox.moe/snz2zf.mp4" type="video/mp4">
                 Il tuo browser non supporta i video.
             </video>
@@ -355,10 +378,10 @@
         <p>Contatti: <a href="mailto:info@riccardotarantino.it" class="contact-link">info@riccardotarantino.it</a></p>
     </footer>
 
-    <!-- JavaScript per dissolvenza ed sblocco audio automatico -->
+    <!-- JavaScript per dissolvenza e controllo audio -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // 1. Animazioni allo scroll
+            // Animazioni allo scroll
             const elementsToAnimate = document.querySelectorAll(".photo-card, .video-card, .reviews-section");
 
             const observerOptions = {
@@ -381,25 +404,21 @@
             elementsToAnimate.forEach(el => {
                 observer.observe(el);
             });
-
-            // 2. Attivazione Audio Automatica al primo tocco dell'utente sulla pagina
-            const video = document.getElementById("brainrotVideo");
-            
-            function enableAudio() {
-                if (video) {
-                    video.muted = false;
-                    video.play();
-                }
-                // Rimuove gli ascoltatori dopo il primo click/tap
-                document.removeEventListener("click", enableAudio);
-                document.removeEventListener("touchstart", enableAudio);
-                document.removeEventListener("scroll", enableAudio);
-            }
-
-            document.addEventListener("click", enableAudio);
-            document.addEventListener("touchstart", enableAudio);
-            document.addEventListener("scroll", enableAudio);
         });
+
+        // Gestione audio video via pulsante
+        function toggleAudio() {
+            const video = document.getElementById("brainrotVideo");
+            const btn = document.getElementById("soundBtn");
+
+            if (video.muted) {
+                video.muted = false;
+                btn.textContent = "🔇 Disattiva Audio";
+            } else {
+                video.muted = true;
+                btn.textContent = "🔊 Attiva Audio";
+            }
+        }
     </script>
 
 </body>
