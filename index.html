@@ -17,7 +17,6 @@
             --text-primary: #f5f5f5;
             --text-secondary: #a0a0a0;
             --accent-gold: #d4af37;
-            --accent-gold-light: #f3e5ab;
             --transition: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -38,8 +37,8 @@
 
         /* Header / Hero Section */
         header {
-            padding: 100px 8% 60px 8%;
-            max-width: 1400px;
+            padding: 80px 6% 40px 6%;
+            max-width: 1300px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -57,10 +56,10 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 5vw, 5rem);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: 400;
             letter-spacing: -1px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: var(--text-primary);
         }
 
@@ -70,19 +69,37 @@
         }
 
         .hero-bio {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 650px;
             font-weight: 300;
         }
 
-        /* Gallery Layout Asimmetrico */
+        /* Titles per le sezioni */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+        }
+
+        /* Gallery Foto Corretta per iPad / Tablet / PC */
         .gallery-container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 0 8% 80px 8%;
+            padding: 0 6% 80px 6%;
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
 
@@ -91,50 +108,18 @@
             border-radius: 16px;
             overflow: hidden;
             background-color: var(--surface-color);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            aspect-ratio: 3 / 4;
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(30px);
             transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
         }
 
         .photo-card.visible,
+        .video-card.visible,
         .reviews-section.visible {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        /* Griglia Asimmetrica per le 3 foto */
-        .photo-card:nth-child(1) {
-            grid-column: span 12;
-            aspect-ratio: 16 / 9;
-        }
-
-        .photo-card:nth-child(2) {
-            grid-column: span 12;
-            aspect-ratio: 4 / 5;
-        }
-
-        .photo-card:nth-child(3) {
-            grid-column: span 12;
-            aspect-ratio: 4 / 5;
-        }
-
-        @media (min-width: 900px) {
-            .photo-card:nth-child(1) {
-                grid-column: span 7;
-                aspect-ratio: 4 / 5;
-            }
-            .photo-card:nth-child(2) {
-                grid-column: span 5;
-                aspect-ratio: 3 / 4;
-                margin-top: 80px;
-            }
-            .photo-card:nth-child(3) {
-                grid-column: span 8;
-                grid-column-start: 3;
-                aspect-ratio: 16 / 9;
-                margin-top: -40px;
-            }
         }
 
         .photo-card img {
@@ -150,75 +135,90 @@
             filter: brightness(1);
         }
 
-        /* Overlay con didascalia */
         .photo-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                to top,
-                rgba(11, 11, 11, 0.9) 0%,
-                rgba(11, 11, 11, 0.3) 50%,
-                transparent 100%
-            );
+            background: linear-gradient(to top, rgba(11, 11, 11, 0.9) 0%, rgba(11, 11, 11, 0.2) 60%, transparent 100%);
             opacity: 0;
             transition: opacity 0.4s ease;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 40px;
+            padding: 30px;
         }
 
-        .photo-card:hover .photo-overlay {
-            opacity: 1;
-        }
+        .photo-card:hover .photo-overlay { opacity: 1; }
 
         .caption-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            margin-bottom: 8px;
+            font-size: 1.5rem;
+            margin-bottom: 6px;
             color: var(--text-primary);
-            transform: translateY(15px);
-            transition: transform 0.5s var(--transition);
         }
 
         .caption-text {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
             font-weight: 300;
-            transform: translateY(15px);
-            transition: transform 0.5s var(--transition) 0.05s;
         }
 
-        .photo-card:hover .caption-title,
-        .photo-card:hover .caption-text {
-            transform: translateY(0);
-        }
-
-        /* Sezione Recensioni Ironiche */
-        .reviews-section {
-            max-width: 1400px;
+        /* SEZIONE VIDEO: RICCARDO BRAINROT (Singolo Video) */
+        .video-section {
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 60px 8% 100px 8%;
+            padding: 20px 6% 80px 6%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-card {
+            position: relative;
+            width: 100%;
+            max-width: 400px; /* Perfetto per video verticali su iPad e Desktop */
+            border-radius: 20px;
+            overflow: hidden;
+            background-color: var(--surface-color);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            aspect-ratio: 9 / 16;
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(30px);
             transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
         }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            text-align: center;
+        .video-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .section-subtitle {
-            text-align: center;
+        .video-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(11, 11, 11, 0.8);
+            backdrop-filter: blur(8px);
             color: var(--accent-gold);
-            font-size: 0.85rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 50px;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        /* Sezione Recensioni */
+        .reviews-section {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px 6% 80px 6%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
         }
 
         .reviews-grid {
@@ -235,92 +235,30 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .review-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-
-        .stars {
-            color: var(--accent-gold);
-            font-size: 1rem;
-            margin-bottom: 16px;
-            letter-spacing: 2px;
-        }
-
-        .review-quote {
-            font-size: 0.98rem;
-            color: var(--text-primary);
-            font-style: italic;
-            margin-bottom: 20px;
-            font-weight: 300;
-            line-height: 1.5;
-        }
-
-        .review-author {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .stars { color: var(--accent-gold); font-size: 1rem; margin-bottom: 14px; letter-spacing: 2px; }
+        .review-quote { font-size: 0.95rem; color: var(--text-primary); font-style: italic; margin-bottom: 20px; font-weight: 300; }
+        .review-author { font-size: 0.85rem; font-weight: 600; color: var(--accent-gold); text-transform: uppercase; }
 
         /* Footer */
         footer {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 40px 8% 80px 8%;
+            padding: 40px 6% 60px 6%;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
             text-align: center;
         }
 
-        footer p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-        }
+        footer p { font-size: 0.85rem; color: var(--text-secondary); font-weight: 300; }
+        .contact-link { color: var(--accent-gold); text-decoration: none; font-weight: 500; }
 
-        .contact-link {
-            color: var(--accent-gold);
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
-        }
-
-        .contact-link:hover {
-            opacity: 0.7;
-        }
-
-        /* Responsive Mobile Adjustments */
         @media (max-width: 768px) {
-            header {
-                padding: 60px 6% 40px 6%;
-            }
-            .gallery-container {
-                padding: 0 6% 60px 6%;
-                gap: 24px;
-            }
-            .reviews-section {
-                padding: 40px 6% 60px 6%;
-            }
-            .photo-overlay {
-                opacity: 1;
-                background: linear-gradient(
-                    to top,
-                    rgba(11, 11, 11, 0.85) 0%,
-                    transparent 70%
-                );
-                padding: 24px;
-            }
-            .caption-title, .caption-text {
-                transform: translateY(0);
-            }
+            .photo-overlay { opacity: 1; padding: 20px; }
         }
     </style>
 </head>
@@ -333,16 +271,13 @@
         <p class="hero-bio">Esplorazioni visive attraverso luci, ombre e momenti catturati nel tempo. Una ricerca estetica minimale e contemporanea.</p>
     </header>
 
-    <!-- Galleria Fotografica -->
+    <!-- Galleria Fotografica con 3 Foto integrate perfettamente -->
     <main class="gallery-container">
 
         <!-- FOTO 1 -->
         <div class="photo-card">
             <img src="foto1.png" alt="Foto 1 Portfolio Riccardo Tarantino">
             <div class="photo-overlay">
-                <!-- ========================================== -->
-                <!-- CAMBIA QUI LA DIDASCALIA DELLA FOTO 1       -->
-                <!-- ========================================== -->
                 <h3 class="caption-title">Silence & Light</h3>
                 <p class="caption-text">Studio sulla geometria della luce naturale.</p>
             </div>
@@ -352,9 +287,6 @@
         <div class="photo-card">
             <img src="foto2.png" alt="Foto 2 Portfolio Riccardo Tarantino">
             <div class="photo-overlay">
-                <!-- ========================================== -->
-                <!-- CAMBIA QUI LA DIDASCALIA DELLA FOTO 2       -->
-                <!-- ========================================== -->
                 <h3 class="caption-title">Urban Solitude</h3>
                 <p class="caption-text">Frammenti di architettura urbana al crepuscolo.</p>
             </div>
@@ -364,9 +296,6 @@
         <div class="photo-card">
             <img src="foto3.png" alt="Foto 3 Portfolio Riccardo Tarantino">
             <div class="photo-overlay">
-                <!-- ========================================== -->
-                <!-- CAMBIA QUI LA DIDASCALIA DELLA FOTO 3       -->
-                <!-- ========================================== -->
                 <h3 class="caption-title">Ephemeral Lines</h3>
                 <p class="caption-text">Minimalismo astratto in bianco e nero.</p>
             </div>
@@ -374,13 +303,26 @@
 
     </main>
 
+    <!-- SEZIONE VIDEO: RICCARDO BRAINROT (1 Video) -->
+    <section class="video-section">
+        <h2 class="section-title">Riccardo Brainrot</h2>
+        <p class="section-subtitle">Momenti ad alto contenuto di brainrot</p>
+
+        <div class="video-card">
+            <span class="video-tag">Brainrot #1</span>
+            <video id="brainrotVideo" autoplay loop muted playsinline controls>
+                <source src="video1.mp4" type="video/mp4">
+                Il tuo browser non supporta i video.
+            </video>
+        </div>
+    </section>
+
     <!-- Sezione Recensioni Ironiche -->
     <section class="reviews-section">
         <h2 class="section-title">Cosa Dicono di Me</h2>
         <p class="section-subtitle">Recensioni da clienti 100% autorevoli</p>
 
         <div class="reviews-grid">
-            <!-- Recensione 1 -->
             <div class="review-card">
                 <div>
                     <div class="stars">★★★★★</div>
@@ -389,7 +331,6 @@
                 <div class="review-author">— La Mamma</div>
             </div>
 
-            <!-- Recensione 2 -->
             <div class="review-card">
                 <div>
                     <div class="stars">★☆☆☆☆</div>
@@ -398,7 +339,6 @@
                 <div class="review-author">— Il Gatto</div>
             </div>
 
-            <!-- Recensione 3 -->
             <div class="review-card">
                 <div>
                     <div class="stars">★★★★★</div>
@@ -415,10 +355,11 @@
         <p>Contatti: <a href="mailto:info@riccardotarantino.it" class="contact-link">info@riccardotarantino.it</a></p>
     </footer>
 
-    <!-- JavaScript per animazioni di dissolvenza allo scroll -->
+    <!-- JavaScript per dissolvenza ed sblocco audio automatico -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const elementsToAnimate = document.querySelectorAll(".photo-card, .reviews-section");
+            // 1. Animazioni allo scroll
+            const elementsToAnimate = document.querySelectorAll(".photo-card, .video-card, .reviews-section");
 
             const observerOptions = {
                 root: null,
@@ -440,6 +381,24 @@
             elementsToAnimate.forEach(el => {
                 observer.observe(el);
             });
+
+            // 2. Attivazione Audio Automatica al primo tocco dell'utente sulla pagina
+            const video = document.getElementById("brainrotVideo");
+            
+            function enableAudio() {
+                if (video) {
+                    video.muted = false;
+                    video.play();
+                }
+                // Rimuove gli ascoltatori dopo il primo click/tap
+                document.removeEventListener("click", enableAudio);
+                document.removeEventListener("touchstart", enableAudio);
+                document.removeEventListener("scroll", enableAudio);
+            }
+
+            document.addEventListener("click", enableAudio);
+            document.addEventListener("touchstart", enableAudio);
+            document.addEventListener("scroll", enableAudio);
         });
     </script>
 
